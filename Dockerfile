@@ -15,5 +15,5 @@ RUN npm run build
 # Build the production version of our app in the container
 
 FROM nginx 
-
+EXPOSE 80
 COPY --from=builder /app/build /usr/share/nginx/html
