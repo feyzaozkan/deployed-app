@@ -5,4 +5,16 @@ before_install:
   - docker build -t feyzaozkan/deployed-app -f Dockerfile.dev .     
 
 script:
-  - docker run -e CI=true feyzaozkan/deployed-app npm run test
+  - docker run -e CI=true feyzaozkan/deployed-app npm run test -- --coverage
+
+deploy: 
+  provider: elasticbeanstalk
+  region: "eu-west-3"
+  app: "my-first-deployment"
+  env : "My-first-deployment-env"
+  bucket_name: "elasticbeanstalk-eu-west-3-859750786700"
+  bucket_path: "my-first-deployment"
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: "AWS_SECRET_KEY"
