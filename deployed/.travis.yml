@@ -1,0 +1,8 @@
+sudo: required    
+services: 
+  - docker
+before_install: 
+  - docker build -t feyzaozkan/deployed-app -f Dockerfile.dev .     
+
+script:
+  - docker run -e CI=true feyzaozkan/deployed-app npm run test
