@@ -1,21 +1,23 @@
-sudo: required    
-services: 
+sudo: required
+language: generic
+
+services:
   - docker
-before_install: 
-  - docker build -t feyzaozkan/deployed-app -f Dockerfile.dev .     
+
+before_install:
+  - docker build -t feyzaozkan/deployed-app -f Dockerfile.dev .
 
 script:
-  - docker run -e CI=true feyzaozkan/deployed-app npm run test -- --coverage
+  - docker run -e CI=true feyzaozkan/deployed-app npm run test
 
-deploy: 
+deploy:
   provider: elasticbeanstalk
   region: "eu-west-3"
-  app: "my-first-deployment"
-  env : "My-first-deployment-env"
+  app: "docker-react"
+  env: "Docker-react-env"
   bucket_name: "elasticbeanstalk-eu-west-3-859750786700"
-  bucket_path: "my-first-deployment"
+  bucket_path: "docker-react"
   on:
-    branch: master
+    branch: main
   access_key_id: $AWS_ACCESS_KEY
-  secret_access_key: 
-    secure: "$AWS_SECRET_KEY"
+  secret_access_key: $AWS_SECRET_KEY

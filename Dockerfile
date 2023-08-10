@@ -1,5 +1,5 @@
 #Split everything the build into two steps
-FROM node:alpine as builder
+FROM node:16-alpine as builder
 # Above, we set the base image for this first stage as a light weigh node called alpine
 
 WORKDIR '/app'
